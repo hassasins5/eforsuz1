@@ -24,4 +24,4 @@ npm run dev
 
 `npm run dev` komutu aynı anda:
 - `http://127.0.0.1:3001` adresinde **Yerel URL Çözücü Servisi** başlatır (ve ilk çalışmada `bin/yt-dlp.exe` motorunu otomatik indirir),
-- `http://localhost:5173` adresinde **Web Arayüzünü** açar.
+- `http://localhost:5174` adresinde **Web Arayüzünü** açar.
