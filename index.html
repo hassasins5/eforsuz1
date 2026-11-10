@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="tr" data-style="studio-nova">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#111111" />
+  <meta name="description" content="Videodan ve URL'den sese, eforsuz. Dosyan ve bağlantın kendi bilgisayarında MP3'e dönüştürülür." />
+
+  <!-- iOS PWA / Ana Ekrana Ekle Uyumluluğu -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Eforsuz" />
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.svg" />
+  <link rel="icon" type="image/svg+xml" href="./icons/icon-192.svg" />
+  <link rel="manifest" href="./manifest.json" />
+
+  <!-- Türkçe Karakter Destekli Tipografi (Plus Jakarta Sans & JetBrains Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <title>Eforsuz — Videodan ve URL'den sese, eforsuz.</title>
+</head>
+<body>
+  <!-- SAĞ ÜST İKONİK SARKIT AMPUL (AÇIK / KOYU MOD ANAHTARI) -->
+  <button id="lamp-toggle" class="lamp-fixture" type="button" aria-label="Açık / Koyu görünümü değiştir">
+    <svg class="lamp-svg" viewBox="0 0 60 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Koyu Modda Yanan Düz Işık Haleleri (Bulanıklık/gradyan olmadan) -->
+      <circle class="lamp-aura-outer" cx="30" cy="95" r="46" />
+      <circle class="lamp-aura-inner" cx="30" cy="95" r="28" />
+
+      <!-- Ekranın Üstünden İnen Kablo -->
+      <line class="lamp-cord" x1="30" y1="0" x2="30" y2="44" />
+
+      <!-- Kiremit / Bakır Duy Üst Kubbesi -->
+      <path class="lamp-socket-cap" d="M21 53 C21 44, 39 44, 39 53 Z" />
+
+      <!-- Duy Gövdesi -->
+      <rect class="lamp-socket-body" x="20" y="53" width="20" height="15" rx="1.5" />
+
+      <!-- Duy Boğum Çizgisi -->
+      <line class="lamp-socket-ring" x1="19.5" y1="54" x2="40.5" y2="54" />
+
+      <!-- Metal Duy Bileziği -->
+      <rect class="lamp-socket-collar" x="22.5" y="68" width="15" height="4" />
+
+      <!-- Aşağı Bakan Yuvarlak Cam Ampul Gövdesi -->
+      <path class="lamp-glass" d="M23 72 C23 78, 13 84, 13 96 A17 17 0 1 0 47 96 C47 84, 37 78, 37 72 Z" />
+
+      <!-- İç Filaman Teli -->
+      <path class="lamp-filament" d="M26 72 L26 88 L30 83 L34 88 L34 72" stroke-linejoin="round" />
+    </svg>
+  </button>
+
+  <div class="page-shell">
+    <!-- ÜST BÖLÜM: Site Adı ve Slogan -->
+    <header class="site-header">
+      <div class="brand-row">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span id="brand-name" class="brand-name">Eforsuz</span>
+      </div>
+      <h1 id="hero-title" class="hero-title">Videodan sese, eforsuz.</h1>
+      <p id="hero-subtitle" class="hero-subtitle">İster cihazından dosya seç, ister YouTube / TikTok / doğrudan video linki yapıştır. Dönüşüm kendi bilgisayarında yapılır.</p>
+    </header>
+
+    <!-- ORTA BÖLÜM: Kaynak Seçimi (Dosya veya URL), Kalite Seçimi ve Dönüştürme Aksiyonu -->
+    <main class="converter-main">
+      <!-- Mod Sekmeleri -->
+      <div class="mode-tabs" role="tablist" aria-label="Kaynak Türü">
+        <button id="tab-file" class="mode-tab is-active" type="button" role="tab" aria-selected="true">
+          Cihazdan Dosya Seç
+        </button>
+        <button id="tab-url" class="mode-tab" type="button" role="tab" aria-selected="false">
+          URL / Link Yapıştır
+        </button>
+      </div>
+
+      <!-- 1. DOSYA MODU ALANI -->
+      <div id="file-mode-container">
+        <input
+          id="file-input"
+          class="file-input-hidden"
+          type="file"
+          accept="video/mp4,video/quicktime,video/webm,video/x-matroska,video/x-msvideo,audio/mp4,audio/x-m4a,.mp4,.mov,.webm,.mkv,.m4a,.avi"
+        />
+
+        <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-describedby="dropzone-hint">
+          <svg class="dropzone-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 16V4m0 0L8 8m4-4l4 4" stroke-linecap="square" stroke-linejoin="miter" />
+            <path d="M4 17v3h16v-3" stroke-linecap="square" stroke-linejoin="miter" />
+          </svg>
+          <span id="dropzone-title" class="dropzone-title">Video Dosyası Seç</span>
+          <span id="dropzone-hint" class="dropzone-hint">Buraya sürükleyip bırak veya dokunarak seç</span>
+          <span id="dropzone-formats" class="dropzone-formats">MP4, MOV, WEBM, MKV, M4A, AVI</span>
+        </div>
+
+        <div id="selected-file-card" class="selected-file-card hidden">
+          <div class="file-meta">
+            <span id="selected-file-name" class="file-name">video.mp4</span>
+            <span id="selected-file-size" class="file-size">0 MB</span>
+          </div>
+          <button id="change-file-btn" class="change-file-btn" type="button">Farklı dosya seç</button>
+        </div>
+      </div>
+
+      <!-- 2. URL MODU ALANI (Yöntem 1 + Yöntem 4 Birleşimi) -->
+      <div id="url-mode-container" class="url-panel hidden">
+        <div class="url-status-bar">
+          <span id="companion-dot" class="status-dot"></span>
+          <span id="companion-status-text">Yerel URL Motoru kontrol ediliyor...</span>
+        </div>
+        <label id="url-label" class="url-label" for="url-input">Video veya Sosyal Medya Bağlantısı</label>
+        <div class="url-input-row">
+          <input
+            id="url-input"
+            class="url-input"
+            type="url"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="https://www.youtube.com/watch?v=... veya https://.../video.mp4"
+          />
+        </div>
+        <p id="url-hint" class="url-hint">
+          YouTube, TikTok, Instagram, X (Twitter), SoundCloud veya doğrudan .mp4/.webm bağlantısı yapıştırabilirsin.
+        </p>
+      </div>
+
+      <!-- 500 MB Üzeri Dosya Uyarısı -->
+      <div id="large-file-warning" class="notice-banner hidden" role="status"></div>
+
+      <!-- Hata Mesajı Kutusu -->
+      <div id="error-banner" class="error-banner hidden" role="alert"></div>
+
+      <!-- Kalite ve Format Seçimi -->
+      <section class="quality-section" aria-labelledby="quality-label">
+        <span id="quality-label" class="section-label">Çıktı Kalitesi ve Formatı</span>
+        <div id="quality-grid" class="quality-grid" role="radiogroup" aria-labelledby="quality-label"></div>
+      </section>
+
+      <!-- Ana "MP3'e Çevir" Butonu -->
+      <button id="convert-btn" class="primary-btn" type="button" disabled>
+        MP3'e Çevir
+      </button>
+
+      <!-- İlerleme Çubuğu ve İptal Butonu -->
+      <div id="progress-card" class="progress-card hidden" aria-live="polite">
+        <div class="progress-header">
+          <span id="progress-status" class="progress-status">Dönüştürülüyor...</span>
+          <span id="progress-percent" class="progress-percent">%0</span>
+        </div>
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <button id="cancel-btn" class="secondary-btn" type="button">İptal Et</button>
+      </div>
+
+      <!-- Dönüşüm Tamamlandı / İndirme Kartı -->
+      <div id="result-card" class="result-card hidden" aria-live="polite">
+        <div class="result-header">
+          <span id="result-badge" class="result-badge">Dönüşüm tamamlandı!</span>
+          <span id="result-filename" class="result-filename">ses.mp3</span>
+        </div>
+        <audio id="audio-preview" class="audio-preview" controls preload="metadata"></audio>
+        <a id="download-link" class="primary-btn" href="#" download="ses.mp3">
+          <span id="download-btn-text">Ses Dosyasını İndir</span>
+        </a>
+        <a id="ios-fallback-link" class="ios-fallback-link" href="#" target="_blank" rel="noopener">
+          İndirme başlamadıysa yeni sekmede aç
+        </a>
+        <button id="reset-btn" class="secondary-btn" type="button">Yeni Bir Video veya URL Çevir</button>
+      </div>
+    </main>
+
+    <!-- ALT BİLGİ: Gizlilik Notu, Telif Uyarısı ve Editoryal Tema Seçici -->
+    <footer class="site-footer">
+      <div class="footer-notes">
+        <p id="privacy-note"></p>
+        <p id="copyright-note"></p>
+      </div>
+      <div class="footer-bottom-bar">
+        <div class="theme-switcher" role="group" aria-label="Tasarım Yönü">
+          <span id="theme-switcher-label" class="theme-switcher-label">Görsel Stil:</span>
+          <button type="button" class="style-pill is-active" data-style="studio-nova">STUDIO NOVA</button>
+          <button type="button" class="style-pill" data-style="linea-design">LINEA DESIGN</button>
+          <button type="button" class="style-pill" data-style="monoq">MONOQ</button>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

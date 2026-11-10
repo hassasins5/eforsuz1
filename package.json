@@ -1,0 +1,22 @@
+{
+  "name": "eforsuz1",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --use-system-ca scripts/baslat.js",
+    "dev:web": "vite",
+    "dev:companion": "node --use-system-ca server/yerel-yardimci.js",
+    "start": "node --use-system-ca scripts/baslat.js",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ffmpeg/core": "^0.12.6",
+    "@ffmpeg/ffmpeg": "^0.12.10",
+    "@ffmpeg/util": "^0.12.1"
+  },
+  "devDependencies": {
+    "vite": "^5.4.8"
+  }
+}

@@ -1,0 +1,74 @@
+/* ==========================================================================
+   TEMA 3: MONOQ
+   Tek renkli (monokrom). Siyah, beyaz ve gri tonları, vurgu rengi yok; 
+   hiyerarşi sadece boyut ve kalınlıkla sağlanır.
+   ========================================================================== */
+
+:root[data-style="monoq"] {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+
+  --border-width: 1px;
+  --border-style: solid;
+
+  /* Açık Mod */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F4F4F4;
+  --bg-elevated: #FFFFFF;
+
+  --text-primary: #000000;
+  --text-secondary: #383838;
+  --text-muted: #737373;
+
+  --border-color: #000000;
+  --border-subtle: #DCDCDC;
+
+  --accent-color: #000000;
+  --accent-hover: #262626;
+  --accent-text: #FFFFFF;
+
+  --status-warn-bg: #F4F4F4;
+  --status-warn-text: #000000;
+  --status-warn-border: #000000;
+
+  --status-err-bg: #000000;
+  --status-err-text: #FFFFFF;
+  --status-err-border: #000000;
+
+  --status-ok-bg: #F4F4F4;
+  --status-ok-text: #000000;
+  --status-ok-border: #000000;
+}
+
+:root[data-style="monoq"][data-theme="dark"] {
+  --bg-primary: #080808;
+  --bg-secondary: #141414;
+  --bg-elevated: #1C1C1C;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #C2C2C2;
+  --text-muted: #787878;
+
+  --border-color: #FFFFFF;
+  --border-subtle: #2E2E2E;
+
+  --accent-color: #FFFFFF;
+  --accent-hover: #E0E0E0;
+  --accent-text: #000000;
+
+  --status-warn-bg: #141414;
+  --status-warn-text: #FFFFFF;
+  --status-warn-border: #FFFFFF;
+
+  --status-err-bg: #FFFFFF;
+  --status-err-text: #000000;
+  --status-err-border: #FFFFFF;
+
+  --status-ok-bg: #141414;
+  --status-ok-text: #FFFFFF;
+  --status-ok-border: #FFFFFF;
+}

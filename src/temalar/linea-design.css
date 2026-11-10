@@ -1,0 +1,74 @@
+/* ==========================================================================
+   TEMA 2: LINEA DESIGN
+   Çizgi odaklı. İnce konturlar (1px), ızgara düzen, mimari çizim hissi, 
+   mavi-gri tonlar ve teknik estetik.
+   ========================================================================== */
+
+:root[data-style="linea-design"] {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+
+  --border-width: 1px;
+  --border-style: solid;
+
+  /* Açık Mod */
+  --bg-primary: #F4F6F8;
+  --bg-secondary: #E9EEF2;
+  --bg-elevated: #FFFFFF;
+
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+
+  --border-color: #94A3B8;
+  --border-subtle: #CBD5E1;
+
+  --accent-color: #0284C7;
+  --accent-hover: #0369A1;
+  --accent-text: #FFFFFF;
+
+  --status-warn-bg: #FEF3C7;
+  --status-warn-text: #92400E;
+  --status-warn-border: #D97706;
+
+  --status-err-bg: #FEE2E2;
+  --status-err-text: #991B1B;
+  --status-err-border: #DC2626;
+
+  --status-ok-bg: #DCFCE7;
+  --status-ok-text: #166534;
+  --status-ok-border: #16A34A;
+}
+
+:root[data-style="linea-design"][data-theme="dark"] {
+  --bg-primary: #0B111E;
+  --bg-secondary: #111A2E;
+  --bg-elevated: #17233B;
+
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+
+  --border-color: #334155;
+  --border-subtle: #1E293B;
+
+  --accent-color: #38BDF8;
+  --accent-hover: #7DD3FC;
+  --accent-text: #0B111E;
+
+  --status-warn-bg: #2A1F0D;
+  --status-warn-text: #FCD34D;
+  --status-warn-border: #B45309;
+
+  --status-err-bg: #2D1215;
+  --status-err-text: #FCA5A5;
+  --status-err-border: #DC2626;
+
+  --status-ok-bg: #0B261A;
+  --status-ok-text: #86EFAC;
+  --status-ok-border: #16A34A;
+}
