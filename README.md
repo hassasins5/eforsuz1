@@ -1,27 +1,40 @@
-# Eforsuz 1 — Videodan ve URL'den Sese, Eforsuz.
+# Eforsuz 1 (Video & URL to MP3 Converter)
 
-**Eforsuz 1**, hem cihazınızdaki video dosyalarını (`MP4`, `MOV`, `WEBM`, `MKV`, `M4A`, `AVI`) hem de yapıştırdığınız **YouTube, TikTok, Instagram, X (Twitter), SoundCloud veya doğrudan `.mp4` bağlantılarını** kendi bilgisayarınızda **MP3** (`128 kbps`, `192 kbps`, `320 kbps`), **M4A** veya **WAV** ses dosyasına dönüştüren hibrit bir web uygulamasıdır.
+Hi there
 
----
+I made this project because I needed a simple tool to convert videos and video links into MP3 directly on my computer without uploading files to online converter websites.
 
-## Mimari (Yöntem 1 + Yöntem 4 Birleşimi)
+## What it does?
+- You can select video files from your computer (mp4, mov, webm, etc.) and turn them into mp3, m4a or wav.
+- You can also paste links from YouTube, TikTok, Twitter/X, Instagram or direct video links and it converts them too!
+- Everything works locally on your machine. Your files and links are not uploaded to any remote server.
+- Has a cool light bulb switch on the top right for dark mode (click it and see the animation haha).
 
-1. **Cihazdan Dosya Seçimi:** Tamamen tarayıcı içindeki `@ffmpeg/ffmpeg` (single-threaded WebAssembly) motoruyla dönüştürülür.
-2. **Doğrudan Medya Linkleri (`.mp4`, `.webm`):** Önce doğrudan tarayıcıdan indirilir, karşı sunucuda CORS engeli varsa yerel CORS vekili (`/api/proxy`) üzerinden tarayıcıya aktarılır.
-3. **Sosyal Medya Bağlantıları (YouTube, TikTok, Instagram, X vb.):** Bilgisayarınızda arka planda çalışan hafif Node.js yardımcı servisi (`server/yerel-yardimci.js`, Port `3001`), kendi ev internetinizi ve otomatik kurulan `yt-dlp` motorunu kullanarak videonun en yüksek kaliteli ses akışını çeker ve tarayıcıdaki FFmpeg WASM motoruna iletir. Ev IP'niz kullanıldığı için **YouTube bot engeline veya CAPTCHA'ya takılmaz**.
+## How to run it on your PC?
 
----
+First make sure you have Node.js installed on your computer.
 
-## Kurulum ve Çalıştırma
-
-Klasör içindeki **`baslat.bat`** dosyasına çift tıklayabilir veya terminalden şu komutu çalıştırabilirsiniz:
-
+1. Clone or download this repo
+2. Open terminal in this folder and install dependencies:
 ```bash
-cd C:\Users\hasan\Desktop\eforsuz1
 npm install
-npm run dev
 ```
 
-`npm run dev` komutu aynı anda:
-- `http://127.0.0.1:3001` adresinde **Yerel URL Çözücü Servisi** başlatır (ve ilk çalışmada `bin/yt-dlp.exe` motorunu otomatik indirir),
-- `http://localhost:5174` adresinde **Web Arayüzünü** açar.
+3. Run the app:
+```bash
+npm run dev
+```
+*(Or if you are on Windows, you can just double click `baslat.bat` file!)*
+
+4. Open your browser and go to:
+`http://localhost:5174`
+
+The local helper server runs automatically in background on port 3001 and handles the link extraction (it downloads `yt-dlp` automatically on first run, so you don't need to configure anything).
+
+## Built With
+- Vanilla JavaScript + Vite
+- ffmpeg.wasm (@ffmpeg/ffmpeg)
+- Node.js (small local helper for url extraction)
+- yt-dlp
+
+Hope you like it! Let me know if you find any bugs.
